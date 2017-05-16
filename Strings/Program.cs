@@ -4,28 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Strings
 {
     public class Program
     {
+        private static Stopwatch s0 = new Stopwatch();
         static void Main(string[] args)
         {
-            var conta = new Conta();
+            s0.Start();
+            var conta1 = new Conta();
 
 
             string primeira = "Cidade";
-            conta.numero = 15234;
-            conta.saldo = 0.0;
-            conta.endereco = new Conta.Endereco()
+            conta1.numero = 15234;
+            conta1.saldo = 0.0;
+            conta1.endereco = new Conta.Endereco()
             {
                 Cidade = "Sao Paulo"
             };
-            //conta.titular = "rua sao paulo 09857-256";
+            conta1.titular = "rua sao paulo 09857-256";
 
-            ValidaString(primeira, conta);
+            //ValidaString(conta.endereco.Estado, conta);
 
-            TesteER();
+            //TesteER();
+
+            Tempos(conta1);
         }
 
         #region Validação de String
@@ -78,6 +83,48 @@ namespace Strings
 
                 Console.WriteLine(string.Format("O texto \"{0,-30}\" [{1}]", texto[i], Casou));
             }
+        }
+        #endregion
+
+        #region Stopwatch
+        static void Tempos(Conta c1)
+        {
+            s0.Stop();
+            Console.WriteLine(s0.ElapsedTicks);
+
+            // TESTE COM 4 CONDIÇÕES EM 1 IF
+            var s1 = new Stopwatch();
+            s1.Start();
+            if (c1 == null || string.IsNullOrWhiteSpace(c1.titular) || c1.endereco == null || string.IsNullOrWhiteSpace(c1.endereco.Cidade))
+            { }
+            Console.WriteLine("TESTE COM 4 CONDIÇÕES EM 1 IF - {0}", s1.ElapsedTicks);
+
+            // TESTE COM 4 IFs E 1 CONDIÇÃO EM CADA
+            var s2 = new Stopwatch();
+            s2.Start();
+            if (c1 == null) { }
+            if (string.IsNullOrWhiteSpace(c1.titular)) { }
+            if (c1.endereco == null) { }
+            if (string.IsNullOrWhiteSpace(c1.endereco.Cidade)) { }
+            Console.WriteLine("TESTE COM 4 IFs E 1 CONDIÇÃO EM CADA - {0}",s2.ElapsedTicks);
+
+            // TESTE COM 4 CONDIÇÕES EM 1 IF
+            var s3 = new Stopwatch();
+            s3.Start();
+            if (c1 == null || string.IsNullOrWhiteSpace(c1.titular) || c1.endereco == null || string.IsNullOrWhiteSpace(c1.endereco.Cidade))
+            { }
+            Console.WriteLine("TESTE COM 4 CONDIÇÕES EM 1 IF - {0}", s3.ElapsedTicks);
+
+            // TESTE COM IF..ELSE..IF
+            var s4 = new Stopwatch();
+            s4.Start();
+            if (c1 == null) { }
+            else if (string.IsNullOrWhiteSpace(c1.titular)) { }
+            else if (c1.endereco == null) { }
+            else if (string.IsNullOrWhiteSpace(c1.endereco.Cidade)) { }
+            Console.WriteLine("TESTE COM IF..ELSE..IF - {0}", s4.ElapsedTicks);
+
+            Console.ReadKey();
         }
         #endregion
     }
