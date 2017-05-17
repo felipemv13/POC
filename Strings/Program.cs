@@ -90,14 +90,15 @@ namespace Strings
         static void Tempos(Conta c1)
         {
             s0.Stop();
-            Console.WriteLine(s0.ElapsedTicks);
+            Console.WriteLine("TEMPO DE COMPILAÇÃO ATÉ INÍCIO DAS DECISÕES - {0}ms",  s0.ElapsedMilliseconds);
+            Console.WriteLine();
 
             // TESTE COM 4 CONDIÇÕES EM 1 IF
             var s1 = new Stopwatch();
             s1.Start();
             if (c1 == null || string.IsNullOrWhiteSpace(c1.titular) || c1.endereco == null || string.IsNullOrWhiteSpace(c1.endereco.Cidade))
             { }
-            Console.WriteLine("TESTE COM 4 CONDIÇÕES EM 1 IF - {0}", s1.ElapsedTicks);
+            Console.WriteLine("TESTE COM 4 CONDIÇÕES EM 1 IF - {0} tick(s)", s1.ElapsedTicks);
 
             // TESTE COM 4 IFs E 1 CONDIÇÃO EM CADA
             var s2 = new Stopwatch();
@@ -106,14 +107,14 @@ namespace Strings
             if (string.IsNullOrWhiteSpace(c1.titular)) { }
             if (c1.endereco == null) { }
             if (string.IsNullOrWhiteSpace(c1.endereco.Cidade)) { }
-            Console.WriteLine("TESTE COM 4 IFs E 1 CONDIÇÃO EM CADA - {0}",s2.ElapsedTicks);
+            Console.WriteLine("TESTE COM 4 IFs E 1 CONDIÇÃO EM CADA - {0} tick(s)", s2.ElapsedTicks);
 
             // TESTE COM 4 CONDIÇÕES EM 1 IF
             var s3 = new Stopwatch();
             s3.Start();
             if (c1 == null || string.IsNullOrWhiteSpace(c1.titular) || c1.endereco == null || string.IsNullOrWhiteSpace(c1.endereco.Cidade))
             { }
-            Console.WriteLine("TESTE COM 4 CONDIÇÕES EM 1 IF - {0}", s3.ElapsedTicks);
+            Console.WriteLine("TESTE COM 4 CONDIÇÕES EM 1 IF - {0} tick(s)", s3.ElapsedTicks);
 
             // TESTE COM IF..ELSE..IF
             var s4 = new Stopwatch();
@@ -122,10 +123,11 @@ namespace Strings
             else if (string.IsNullOrWhiteSpace(c1.titular)) { }
             else if (c1.endereco == null) { }
             else if (string.IsNullOrWhiteSpace(c1.endereco.Cidade)) { }
-            Console.WriteLine("TESTE COM IF..ELSE..IF - {0}", s4.ElapsedTicks);
+            Console.WriteLine("TESTE COM IF..ELSE..IF - {0} tick(s)", s4.ElapsedTicks);
 
             Console.ReadKey();
         }
         #endregion
+
     }
 }
