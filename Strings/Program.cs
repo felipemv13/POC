@@ -25,38 +25,47 @@ namespace Strings
                 Cidade = "Sao Paulo"
             };
             conta1.titular = "rua sao paulo 09857-256";
-
-            //ValidaString(conta.endereco.Estado, conta);
+            
+            ValidaString(conta1.endereco.Estado, conta1);
 
             //TesteER();
 
-            Tempos(conta1);
+            //Tempos(conta1);
         }
 
         #region Validação de String
         static void ValidaString(string a, Conta conta)
         {
+            var valida = !string.IsNullOrWhiteSpace(a) ? Regex.Replace(a, @"[^0-9]", "") : string.Empty;
+
             bool testeVF;
-            var b = a.ToLower();
-            var c = new Conta();
-            c.endereco = new Conta.Endereco() { };
+            var b = a?.ToLower();
+            var conta2 = new Conta();
+            conta2.endereco = new Conta.Endereco() { };
+
+            var conta3 = new Conta();
 
             var conta_numero = conta.numero;
             var conta_saldo = conta.saldo;
             var conta_nome = conta.titular?.ToLower();
 
-            if (c.endereco.Cidade == conta.endereco.Cidade)
+            if (conta2.endereco.Cidade == conta.endereco.Cidade)
                 testeVF = false;
 
             if (conta_nome == conta.titular)
                 Console.WriteLine("Nulos ok");
 
             List<Conta> contas = new List<Conta>();
-            contas.Add(c);
+            contas.Add(conta2);
             contas.Add(conta);
             testeVF = contas.Any(x => !string.IsNullOrWhiteSpace(x.endereco.Cidade));
             var testeVF_All = contas.All(x => !string.IsNullOrWhiteSpace(x.endereco.Cidade));
             var testeVF_Count = contas.Count(x => !string.IsNullOrWhiteSpace(x.endereco.Cidade));
+
+            //var d = conta.endereco != null ? conta.endereco.CEP ?? "nulo" : string.Empty;
+            var d = conta.endereco != null ? conta.endereco.CEP : string.Empty;
+            var e = conta3.endereco != null ? conta3.endereco.CEP ?? string.Empty : "obj nulo";
+            var f = conta3.endereco?.CEP ?? "obj nulo";
         }
         #endregion
 
