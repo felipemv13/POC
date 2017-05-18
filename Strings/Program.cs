@@ -38,6 +38,9 @@ namespace Strings
         {
             var valida = !string.IsNullOrWhiteSpace(a) ? Regex.Replace(a, @"[^0-9]", "") : string.Empty;
 
+            var aTrim = conta.endereco.Cidade.Trim();
+            var bTrim = conta.endereco.Estado?.Trim();
+
             bool testeVF;
             var b = a?.ToLower();
             var conta2 = new Conta();
