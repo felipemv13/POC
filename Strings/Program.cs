@@ -16,7 +16,6 @@ namespace Strings
             s0.Start();
             var conta1 = new Conta();
 
-
             string primeira = "Cidade";
             conta1.numero = 15234;
             conta1.saldo = 0.0;
@@ -25,12 +24,14 @@ namespace Strings
                 Cidade = "Sao Paulo"
             };
             conta1.titular = "rua sao paulo 09857-256";
-            
-            ValidaString(conta1.endereco.Estado, conta1);
+
+            //ValidaString(conta1.endereco.Estado, conta1);
 
             //TesteER();
 
             //Tempos(conta1);
+
+            VerificaIdadeXeY();
         }
 
         #region Validação de String
@@ -102,7 +103,7 @@ namespace Strings
         static void Tempos(Conta c1)
         {
             s0.Stop();
-            Console.WriteLine("TEMPO DE COMPILAÇÃO ATÉ INÍCIO DAS DECISÕES - {0}ms",  s0.ElapsedMilliseconds);
+            Console.WriteLine("TEMPO DE COMPILAÇÃO ATÉ INÍCIO DAS DECISÕES - {0}ms", s0.ElapsedMilliseconds);
             Console.WriteLine();
 
             // TESTE COM 4 CONDIÇÕES EM 1 IF
@@ -141,5 +142,24 @@ namespace Strings
         }
         #endregion
 
+        #region Datas
+        static void VerificaIdadeXeY()
+        {
+            var IdadeDe = 15;
+            var IdadeAte = 65;
+            var dataNasc = new DateTime(1979, 07, 22);
+
+            var dataAgora = DateTime.Today;
+            var idade = (dataAgora.Year - dataNasc.Year);
+
+            idade = dataAgora.Month < dataNasc.Month || (dataAgora.Month == dataNasc.Month && dataAgora.Day < dataNasc.Day) ? idade - 1 : idade;
+            bool a = idade >= IdadeDe && idade < IdadeAte;
+
+            //TimeSpan idade2 = dataAgora - dataNasc;
+            //idade22 = idade2.Days;
+            //var idade2a = Math.Floor(Convert.ToInt32(idade2) / 365.25);
+            //bool b = idade2a >= IdadeDe && idade2a < IdadeAte;
+        }
+        #endregion
     }
 }
