@@ -16,6 +16,10 @@ namespace Strings
             s0.Start();
             var conta1 = new Conta();
 
+            double a = 150;
+            double a1 = 150.00;
+            //double a2 = 150,00;
+
             string primeira = "Cidade";
             conta1.numero = 15234;
             conta1.saldo = 0.0;
