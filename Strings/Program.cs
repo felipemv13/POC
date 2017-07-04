@@ -274,6 +274,26 @@ namespace Strings
             if (string.Empty == sb1.ToString())
                 Console.WriteLine("sb1.clear() é igual a string.empty");
 
+            var sbQuery = new StringBuilder();
+            sbQuery.AppendLine("INSERT INTO [dbo].[Ingresso]");
+            sbQuery.Append("([Data]");
+            sbQuery.Append(", [IdSetor]");
+            sbQuery.Append(false == null ? "" : ", [TaxaServico]");
+            sbQuery.Append(true == null ? "" : ", [GrupoDeVendas]");
+            sbQuery.Append(", [IdTipoDeDesconto]");
+            sbQuery.Append(", [IdMeioDeEntrega]");
+            sbQuery.AppendLine(true == null ? ")" : ", [ProdutoId])");
+            sbQuery.AppendLine("VALUES");
+            sbQuery.Append("(@Data");
+            sbQuery.Append(", @IdSetor");
+            sbQuery.Append(false == null ? "" : ", @TaxaServico");
+            sbQuery.Append(true == null ? "" : ", @GrupoDeVendas");
+            sbQuery.Append(", @IdTipoDeDesconto");
+            sbQuery.Append(", @IdMeioDeEntrega");
+            sbQuery.AppendLine(true == null ? ");" : ", @ProdutoId);");
+            sbQuery.Append("SELECT CAST(scope_identity() AS int) ");
+            var queryInsert = sbQuery.ToString();
+            Console.WriteLine(queryInsert);
 
         }
         #endregion
