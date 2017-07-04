@@ -12,7 +12,7 @@ namespace Strings
         private static Stopwatch s0 = new Stopwatch();
         public static void Main(string[] args)
         {
-            VerificaMoedaPais();
+            //VerificaMoedaPais();
             GeradorStringBuilder();
             s0.Start();
             var conta1 = new Conta();
@@ -247,14 +247,34 @@ namespace Strings
         #region Stringbuilder
         static void GeradorStringBuilder()
         {
+            StringBuilder sb1 = new StringBuilder();
             var nome1 = "Felipe";
             var nome2 = "Isabela";
             var nome3 = "Daniela";
-            StringBuilder sb1 = new StringBuilder();
             sb1.AppendLine(nome1);
             sb1.AppendLine(nome2);
             sb1.AppendLine(nome3);
+            string texto1 = sb1.ToString();
+
             Console.WriteLine(sb1);
+            Console.WriteLine(texto1);
+
+            sb1.Clear();
+            Console.WriteLine(sb1);
+            var teste = string.Empty;
+            if (teste == sb1.ToString())
+                Console.WriteLine("sb1.clear() é igual a teste");
+
+            if (teste == "")
+                Console.WriteLine("teste é igual a string.empty");
+
+            if ("" == string.Empty)
+                Console.WriteLine("\"\" é igual a string.empty");
+
+            if (string.Empty == sb1.ToString())
+                Console.WriteLine("sb1.clear() é igual a string.empty");
+
+
         }
         #endregion
 
