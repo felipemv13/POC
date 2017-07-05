@@ -10,10 +10,11 @@ namespace Strings
     public class Program
     {
         private static Stopwatch s0 = new Stopwatch();
+
         public static void Main(string[] args)
         {
             //VerificaMoedaPais();
-            GeradorStringBuilder();
+            //GeradorStringBuilder();
             s0.Start();
             var conta1 = new Conta();
 
@@ -33,8 +34,8 @@ namespace Strings
             //ValidaString(conta1.endereco.Estado, conta1);
 
             //TesteER();
-
-            //Tempos(conta1);
+            var pedido1 = new Pedido();
+            Tempos(conta1, pedido1);
 
             Randomico(1);
             var cpfnovo = GerarCpf();
@@ -109,7 +110,7 @@ namespace Strings
         #endregion
 
         #region Stopwatch
-        static void Tempos(Conta c1)
+        static void Tempos(Conta c1 = null, Pedido pedido = null)
         {
             s0.Stop();
             Console.WriteLine("TEMPO DE COMPILAÇÃO ATÉ INÍCIO DAS DECISÕES - {0}ms", s0.ElapsedMilliseconds);
@@ -146,6 +147,148 @@ namespace Strings
             else if (c1.Endereco == null) { }
             else if (string.IsNullOrWhiteSpace(c1.Endereco.Cidade)) { }
             Console.WriteLine("TESTE COM IF..ELSE..IF - {0} tick(s)", s4.ElapsedTicks);
+
+            // TESTE COM CONCATENAÇÃO
+            var s5 = new Stopwatch();
+            s5.Start();
+            var idEnderecoPedido = 1;
+            string _insert = "INSERT INTO Pedido (id, numerodopedido, datadacompra, datacriacao, dataalteracao, idempresa " +
+            (pedido.NumeroIp == null ? "" : ", numeroip") +
+            ", idconsumidor, idstatus, " +
+            "idenderecoentrega, lote " +
+            (pedido.IdMotivoChargeback == null ? "" : ", IdMotivoChargeback") +
+            (pedido.Operador == null ? "" : ",  Operador") +
+            (pedido.Token == null ? "" : ", Token") +
+            ", valortotal, valorjuros, valordesconto, valoracrescimo, valorparcela, frete, emailentrega, canalnome, idcanal, iddevice, statustransacao, " +
+            "descricaostatustransacao, vendedor" +
+            (pedido.IdMotivo == null ? "" : ", IdMotivo") +
+            (pedido.Coletor == null ? "" : ", Coletor ") +
+            (pedido.IdStatusFinal == null ? "" : ", IdStatusFinal ") +
+            (pedido.IdMotivoFinal == null ? "" : ", IdMotivoFinal ") +
+            (pedido.Dispositivo == null ? "" : ", Dispositivo ") +
+            (pedido.TipoDeEntrega == null ? "" : ", TipoDeEntrega ") +
+            (pedido.DecisaoExterna == null ? "" : ", DecisaoExterna ") +
+            ", reanalise) " +
+            " VALUES " +
+            "(@Id " +
+            ", @NumeroDoPedido" +
+            ", @DataDaCompra" +
+            ", getdate()" +
+            ", getdate()" +
+            ", @IdEmpresa " +
+            (pedido.NumeroIp == null ? "" : ", @NumeroIp") +
+            ", @IdConsumidor" +
+            ", @IdStatus " +
+            ", " + (idEnderecoPedido == 0 ? "null" : "@IdEnderecoEntrega") +
+            ", @Lote" +
+            (pedido.IdMotivoChargeback == null ? "" : ", @IdMotivoChargeback") +
+            (pedido.Operador == null ? "" : ",  @Operador") +
+            (pedido.Token == null ? "" : ", @Token") +
+            ", @ValorTotal" +
+            ", @ValorJuros" +
+            ", @ValorDesconto " +
+            ", @ValorAcrescimo " +
+            ", @ValorParcela" +
+            ", @Frete" +
+            ", @EmailEntrega" +
+            ", @CanalNome" +
+            ", @IdCanal" +
+            ", @IdDevice" +
+            ", @StatusTransacao" +
+            ", @DescricaoStatusTransacao" +
+            ", @Vendedor " +
+            (pedido.IdMotivo == null ? "" : ", @IdMotivo") +
+            (pedido.Coletor == null ? "" : ", @Coletor ") +
+            (pedido.IdStatusFinal == null ? "" : ", @IdStatusFinal ") +
+            (pedido.IdMotivoFinal == null ? "" : ", @IdMotivoFinal ") +
+            (pedido.Dispositivo == null ? "" : ", @Dispositivo ") +
+            (pedido.TipoDeEntrega == null ? "" : ", @TipoDeEntrega ") +
+            (pedido.DecisaoExterna == null ? "" : ", @DecisaoExterna ") +
+            ", @Reanalise" +
+            ") ";
+            s5.Stop();
+            Console.WriteLine("TESTE COM CONCATENAÇÃO - {0} tick(s)", s5.ElapsedTicks);
+
+            // TESTE COM STRINGBUILDER
+            var s6 = new Stopwatch();
+            s6.Start();
+            var queryTemp = new StringBuilder();
+            queryTemp.AppendLine("INSERT INTO [dbo].[Pedido]");
+            queryTemp.AppendLine(" ([id]");
+            queryTemp.AppendLine(", [numerodopedido]");
+            queryTemp.AppendLine(", [datadacompra]");
+            queryTemp.AppendLine(", [datacriacao]");
+            queryTemp.AppendLine(", [dataalteracao]");
+            queryTemp.AppendLine(", [idempresa]");
+            queryTemp.AppendLine(pedido.NumeroIp == null ? "" : ", [numeroip]");
+            queryTemp.AppendLine(", [idconsumidor]");
+            queryTemp.AppendLine(", [idstatus]");
+            queryTemp.AppendLine(", [idenderecoentrega]");
+            queryTemp.AppendLine(", [lote]");
+            queryTemp.AppendLine(pedido.IdMotivoChargeback == null ? "" : ", [IdMotivoChargeback]");
+            queryTemp.AppendLine(pedido.Operador == null ? "" : ",  [Operador]");
+            queryTemp.AppendLine(pedido.Token == null ? "" : ", [Token]");
+            queryTemp.AppendLine(", [valortotal]");
+            queryTemp.AppendLine(", [valorjuros]");
+            queryTemp.AppendLine(", [valordesconto]");
+            queryTemp.AppendLine(", [valoracrescimo]");
+            queryTemp.AppendLine(", [valorparcela]");
+            queryTemp.AppendLine(", [frete]");
+            queryTemp.AppendLine(", [emailentrega]");
+            queryTemp.AppendLine(", [canalnome]");
+            queryTemp.AppendLine(", [idcanal]");
+            queryTemp.AppendLine(", [iddevice]");
+            queryTemp.AppendLine(", [statustransacao]");
+            queryTemp.AppendLine(", [descricaostatustransacao]");
+            queryTemp.AppendLine(", [vendedor]");
+            queryTemp.AppendLine(pedido.IdMotivo == null ? "" : ", [IdMotivo]");
+            queryTemp.AppendLine(pedido.Coletor == null ? "" : ", [Coletor]");
+            queryTemp.AppendLine(pedido.IdStatusFinal == null ? "" : ", [IdStatusFinal]");
+            queryTemp.AppendLine(pedido.IdMotivoFinal == null ? "" : ", [IdMotivoFinal]");
+            queryTemp.AppendLine(pedido.Dispositivo == null ? "" : ", [Dispositivo]");
+            queryTemp.AppendLine(pedido.TipoDeEntrega == null ? "" : ", [TipoDeEntrega]");
+            queryTemp.AppendLine(pedido.DecisaoExterna == null ? "" : ", [DecisaoExterna]");
+            queryTemp.AppendLine(", [reanalise]");
+            queryTemp.AppendLine(" VALUES ");
+            queryTemp.AppendLine(", @Id");
+            queryTemp.AppendLine(", @NumeroDoPedido");
+            queryTemp.AppendLine(", @DataDaCompra");
+            queryTemp.AppendLine(", GETDATE()");
+            queryTemp.AppendLine(", GETDATE()");
+            queryTemp.AppendLine(", @IdEmpresa");
+            queryTemp.AppendLine(pedido.NumeroIp == null ? "" : ", @NumeroIp");
+            queryTemp.AppendLine(", @IdConsumidor");
+            queryTemp.AppendLine(", @IdStatus");
+            queryTemp.AppendLine(idEnderecoPedido == 0 ? ", NULL" : ", @IdEnderecoEntrega");
+            queryTemp.AppendLine(", @Lote");
+            queryTemp.AppendLine(pedido.IdMotivoChargeback == null ? "" : ", @IdMotivoChargeback");
+            queryTemp.AppendLine(pedido.Operador == null ? "" : ",  @Operador");
+            queryTemp.AppendLine(pedido.Token == null ? "" : ", @Token");
+            queryTemp.AppendLine(", @ValorTotal");
+            queryTemp.AppendLine(", @ValorJuros");
+            queryTemp.AppendLine(", @ValorDesconto");
+            queryTemp.AppendLine(", @ValorAcrescimo");
+            queryTemp.AppendLine(", @ValorParcela");
+            queryTemp.AppendLine(", @Frete");
+            queryTemp.AppendLine(", @EmailEntrega");
+            queryTemp.AppendLine(", @CanalNome");
+            queryTemp.AppendLine(", @IdCanal");
+            queryTemp.AppendLine(", @IdDevice");
+            queryTemp.AppendLine(", @StatusTransacao");
+            queryTemp.AppendLine(", @DescricaoStatusTransacao");
+            queryTemp.AppendLine(", @Vendedor");
+            queryTemp.AppendLine(pedido.IdMotivo == null ? "" : ", @IdMotivo");
+            queryTemp.AppendLine(pedido.Coletor == null ? "" : ", @Coletor");
+            queryTemp.AppendLine(pedido.IdStatusFinal == null ? "" : ", @IdStatusFinal");
+            queryTemp.AppendLine(pedido.IdMotivoFinal == null ? "" : ", @IdMotivoFinal");
+            queryTemp.AppendLine(pedido.Dispositivo == null ? "" : ", @Dispositivo");
+            queryTemp.AppendLine(pedido.TipoDeEntrega == null ? "" : ", @TipoDeEntrega");
+            queryTemp.AppendLine(pedido.DecisaoExterna == null ? "" : ", @DecisaoExterna");
+            queryTemp.AppendLine(", @Reanalise); ");
+            var queryString = queryTemp.ToString();
+
+            s6.Stop();
+            Console.WriteLine("TESTE COM STRINGBUILDER - {0} tick(s)", s6.ElapsedTicks);
 
             Console.ReadKey();
         }

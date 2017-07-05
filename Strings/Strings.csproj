@@ -46,6 +46,7 @@
     <Compile Include="Conta.cs" />
     <Compile Include="Endereco.cs" />
     <Compile Include="Gerador.cs" />
+    <Compile Include="Pedido.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
