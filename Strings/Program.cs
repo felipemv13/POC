@@ -148,10 +148,11 @@ namespace Strings
             else if (string.IsNullOrWhiteSpace(c1.Endereco.Cidade)) { }
             Console.WriteLine("TESTE COM IF..ELSE..IF - {0} tick(s)", s4.ElapsedTicks);
 
+
             // TESTE COM CONCATENAÇÃO
+            var idEnderecoPedido = 1;
             var s5 = new Stopwatch();
             s5.Start();
-            var idEnderecoPedido = 1;
             string _insert = "INSERT INTO Pedido (id, numerodopedido, datadacompra, datacriacao, dataalteracao, idempresa " +
             (pedido.NumeroIp == null ? "" : ", numeroip") +
             ", idconsumidor, idstatus, " +
@@ -207,12 +208,14 @@ namespace Strings
             ", @Reanalise" +
             ") ";
             s5.Stop();
-            Console.WriteLine("TESTE COM CONCATENAÇÃO - {0} tick(s)", s5.ElapsedTicks);
+            Console.WriteLine("TESTE COM CONCATENAÇÃO v1 - {0} tick(s)", s5.ElapsedTicks);
 
-            // TESTE COM STRINGBUILDER
+
+
+            // TESTE COM STRINGBUILDER com 75
             var s6 = new Stopwatch();
-            s6.Start();
-            var queryTemp = new StringBuilder();
+            s6.Start();            
+            var queryTemp = new StringBuilder(75);
             queryTemp.AppendLine("INSERT INTO [dbo].[Pedido]");
             queryTemp.AppendLine(" ([id]");
             queryTemp.AppendLine(", [numerodopedido]");
@@ -288,7 +291,196 @@ namespace Strings
             var queryString = queryTemp.ToString();
 
             s6.Stop();
-            Console.WriteLine("TESTE COM STRINGBUILDER - {0} tick(s)", s6.ElapsedTicks);
+            Console.WriteLine("TESTE COM STRINGBUILDER com 75- {0} tick(s)", s6.ElapsedTicks);
+
+
+            // TESTE COM CONCATENAÇÃO
+            var s51 = new Stopwatch();
+            s51.Start();
+            string _insert51 = "INSERT INTO Pedido (id, numerodopedido, datadacompra, datacriacao, dataalteracao, idempresa " +
+            (pedido.NumeroIp == null ? "" : ", numeroip") +
+            ", idconsumidor, idstatus, " +
+            "idenderecoentrega, lote " +
+            (pedido.IdMotivoChargeback == null ? "" : ", IdMotivoChargeback") +
+            (pedido.Operador == null ? "" : ",  Operador") +
+            (pedido.Token == null ? "" : ", Token") +
+            ", valortotal, valorjuros, valordesconto, valoracrescimo, valorparcela, frete, emailentrega, canalnome, idcanal, iddevice, statustransacao, " +
+            "descricaostatustransacao, vendedor" +
+            (pedido.IdMotivo == null ? "" : ", IdMotivo") +
+            (pedido.Coletor == null ? "" : ", Coletor ") +
+            (pedido.IdStatusFinal == null ? "" : ", IdStatusFinal ") +
+            (pedido.IdMotivoFinal == null ? "" : ", IdMotivoFinal ") +
+            (pedido.Dispositivo == null ? "" : ", Dispositivo ") +
+            (pedido.TipoDeEntrega == null ? "" : ", TipoDeEntrega ") +
+            (pedido.DecisaoExterna == null ? "" : ", DecisaoExterna ") +
+            ", reanalise) " +
+            " VALUES " +
+            "(@Id " +
+            ", @NumeroDoPedido" +
+            ", @DataDaCompra" +
+            ", getdate()" +
+            ", getdate()" +
+            ", @IdEmpresa " +
+            (pedido.NumeroIp == null ? "" : ", @NumeroIp") +
+            ", @IdConsumidor" +
+            ", @IdStatus " +
+            ", " + (idEnderecoPedido == 0 ? "null" : "@IdEnderecoEntrega") +
+            ", @Lote" +
+            (pedido.IdMotivoChargeback == null ? "" : ", @IdMotivoChargeback") +
+            (pedido.Operador == null ? "" : ",  @Operador") +
+            (pedido.Token == null ? "" : ", @Token") +
+            ", @ValorTotal" +
+            ", @ValorJuros" +
+            ", @ValorDesconto " +
+            ", @ValorAcrescimo " +
+            ", @ValorParcela" +
+            ", @Frete" +
+            ", @EmailEntrega" +
+            ", @CanalNome" +
+            ", @IdCanal" +
+            ", @IdDevice" +
+            ", @StatusTransacao" +
+            ", @DescricaoStatusTransacao" +
+            ", @Vendedor " +
+            (pedido.IdMotivo == null ? "" : ", @IdMotivo") +
+            (pedido.Coletor == null ? "" : ", @Coletor ") +
+            (pedido.IdStatusFinal == null ? "" : ", @IdStatusFinal ") +
+            (pedido.IdMotivoFinal == null ? "" : ", @IdMotivoFinal ") +
+            (pedido.Dispositivo == null ? "" : ", @Dispositivo ") +
+            (pedido.TipoDeEntrega == null ? "" : ", @TipoDeEntrega ") +
+            (pedido.DecisaoExterna == null ? "" : ", @DecisaoExterna ") +
+            ", @Reanalise" +
+            ") ";
+            s51.Stop();
+            Console.WriteLine("TESTE COM CONCATENAÇÃO - {0} tick(s)", s51.ElapsedTicks);
+
+
+            // TESTE COM FORMATAÇÃO
+            var s7 = new Stopwatch();
+            s7.Start();
+            string testeFormat = @"INSERT INTO Pedido (id, numerodopedido, datadacompra, datacriacao, dataalteracao, idempresa
+            (pedido.NumeroIp == null ? \ \  \, numeroip\
+            , idconsumidor, idstatus,
+            idenderecoentrega, lote
+            (pedido.IdMotivoChargeback == null ?  : , IdMotivoChargeback
+            (pedido.Operador == null ?  : ,  Operador
+            (pedido.Token == null ?  : , Token
+             valortotal, valorjuros, valordesconto, valoracrescimo, valorparcela, frete, emailentrega, canalnome, idcanal, iddevice, statustransacao, 
+            descricaostatustransacao, vendedor
+            (pedido.IdMotivo == null ?  : , IdMotivo
+            (pedido.Coletor == null ?  : , Coletor  +
+            (pedido.IdStatusFinal == null ?  : , IdStatusFinal  +
+            (pedido.IdMotivoFinal == null ?  : , IdMotivoFinal ) +
+            (pedido.Dispositivo == null ?  : , Dispositivo ) +
+            (pedido.TipoDeEntrega == null ?  :  TipoDeEntrega) +
+            (pedido.DecisaoExterna == null ?  :  DecisaoExterna ) +
+            , reanalise)  +
+             VALUES  +
+            (@Id  +
+            , @NumeroDoPedido +
+            , @DataDaCompra +
+            , getdate() +
+            , getdate() +
+            , @IdEmpresa  +
+            (pedido.NumeroIp == null ?  : , @NumeroIp) +
+            , @IdConsumidor +
+            , @IdStatus  +
+            ,  + (idEnderecoPedido1 == 0 ? null : @IdEnderecoEntrega) +
+            , @Lote +
+            (pedido.IdMotivoChargeback == null ?  : , @IdMotivoChargeback) +
+            (pedido.Operador == null ?  : ,  @Operador) +
+            (pedido.Token == null ?  : , @Token) +
+            , @ValorTotal +
+            , @ValorJuros +
+            , @ValorDesconto  +
+            , @ValorAcrescimo  +
+            , @ValorParcela +
+            , @Frete +
+            , @EmailEntrega +
+            , @CanalNome +
+            , @IdCanal +
+            , @IdDevice +
+            , @StatusTransacao +
+            , @DescricaoStatusTransacao +
+            , @Vendedor  +
+            (pedido.IdMotivo == null ?  : , @IdMotivo) +
+            (pedido.Coletor == null ?  :  @Coletor ) +
+            (pedido.IdStatusFinal == null ?  : , @IdStatusFinal ) +
+            (pedido.IdMotivoFinal == null ?  : , @IdMotivoFinal ) +
+            (pedido.Dispositivo == null ?  : , @Dispositivo ) +
+            (pedido.TipoDeEntrega == null ?  :, @TipoDeEntrega ) +
+            (pedido.DecisaoExterna == null ?  : , @DecisaoExterna ) +
+            , @Reanalise +
+            ) ";
+            s7.Stop();
+            Console.WriteLine("TESTE COM FORMATAÇÃO - {0} tick(s)", s7.ElapsedTicks);
+
+            // TESTE COM STRINGBUILDER SEM IF
+            var s8 = new Stopwatch();
+            s8.Start();
+            var testesbs = new StringBuilder(100);
+            testesbs.AppendLine("INSERT INTO Pedido (id, numerodopedido, datadacompra, datacriacao, dataalteracao, idempresa");
+            testesbs.AppendLine("(pedido.NumeroIp == null ? , numeroip");
+            testesbs.AppendLine(", idconsumidor, idstatus,");
+            testesbs.AppendLine("idenderecoentrega, lote");
+            testesbs.AppendLine("(pedido.IdMotivoChargeback == null ?  : , IdMotivoChargeback");
+            testesbs.AppendLine("(pedido.Operador == null ?  : ,  Operador");
+            testesbs.AppendLine("(pedido.Token == null ?  : , Token");
+            testesbs.AppendLine(" valortotal, valorjuros, valordesconto, valoracrescimo, valorparcela, frete, emailentrega, canalnome, idcanal, iddevice, statustransacao, ");
+            testesbs.AppendLine("descricaostatustransacao, vendedor");
+            testesbs.AppendLine("(pedido.IdMotivo == null ?  : , IdMotivo");
+            testesbs.AppendLine("(pedido.Coletor == null ?  : , Coletor  +");
+            testesbs.AppendLine("(pedido.IdStatusFinal == null ?  : , IdStatusFinal  +");
+            testesbs.AppendLine("(pedido.IdMotivoFinal == null ?  : , IdMotivoFinal ) +");
+            testesbs.AppendLine("(pedido.Dispositivo == null ?  : , Dispositivo ) +");
+            testesbs.AppendLine("(pedido.TipoDeEntrega == null ?  :  TipoDeEntrega) +");
+            testesbs.AppendLine("(pedido.DecisaoExterna == null ?  :  DecisaoExterna ) +");
+            testesbs.AppendLine(", reanalise)  +");
+            testesbs.AppendLine(" VALUES  +");
+            testesbs.AppendLine("(@Id  +");
+            testesbs.AppendLine(", @NumeroDoPedido +");
+            testesbs.AppendLine(", @DataDaCompra +");
+            testesbs.AppendLine(", getdate() +");
+            testesbs.AppendLine(", getdate() +");
+            testesbs.AppendLine(", @IdEmpresa  +");
+            testesbs.AppendLine("(pedido.NumeroIp == null ?  : , @NumeroIp) +");
+            testesbs.AppendLine(", @IdConsumidor +");
+            testesbs.AppendLine(", @IdStatus  +");
+            testesbs.AppendLine(",  + (idEnderecoPedido1 == 0 ? null : @IdEnderecoEntrega) +");
+            testesbs.AppendLine(", @Lote +");
+            testesbs.AppendLine("(pedido.IdMotivoChargeback == null ?  : , @IdMotivoChargeback) +");
+            testesbs.AppendLine("(pedido.Operador == null ?  : ,  @Operador) +");
+            testesbs.AppendLine("(pedido.Token == null ?  : , @Token) +");
+            testesbs.AppendLine(", @ValorTotal +");
+            testesbs.AppendLine(", @ValorJuros +");
+            testesbs.AppendLine(", @ValorDesconto  +");
+            testesbs.AppendLine(", @ValorAcrescimo  +");
+            testesbs.AppendLine(", @ValorParcela +");
+            testesbs.AppendLine(", @Frete +");
+            testesbs.AppendLine(", @EmailEntrega +");
+            testesbs.AppendLine(", @CanalNome +");
+            testesbs.AppendLine(", @IdCanal +");
+            testesbs.AppendLine(", @IdDevice +");
+            testesbs.AppendLine(", @StatusTransacao +");
+            testesbs.AppendLine(", @DescricaoStatusTransacao +");
+            testesbs.AppendLine(", @Vendedor  +");
+            testesbs.AppendLine("(pedido.IdMotivo == null ?  : , @IdMotivo) +");
+            testesbs.AppendLine("(pedido.Coletor == null ?  :  @Coletor ) +");
+            testesbs.AppendLine("(pedido.IdStatusFinal == null ?  : , @IdStatusFinal ) +");
+            testesbs.AppendLine("(pedido.IdMotivoFinal == null ?  : , @IdMotivoFinal ) +");
+            testesbs.AppendLine("(pedido.Dispositivo == null ?  : , @Dispositivo ) +");
+            testesbs.AppendLine("(pedido.TipoDeEntrega == null ?  :, @TipoDeEntrega ) +");
+            testesbs.AppendLine("(pedido.DecisaoExterna == null ?  : , @DecisaoExterna ) +");
+            testesbs.AppendLine(", @Reanalise +");
+            testesbs.AppendLine(") ; ");
+            s8.Stop();
+            Console.WriteLine("TESTE COM STRINGBUILDER SEM IF - {0} tick(s)", s8.ElapsedTicks);
+
+            var queryString1 =
+                @"INSERT INTO [dbo].[InformacaoAdicional] ([DataCadastroConsumidor], [IdPedido])
+                VALUES (@DataCadastroConsumidor, @IdPedido)";
+
+            Console.WriteLine(queryString1);
 
             Console.ReadKey();
         }
