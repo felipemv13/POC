@@ -13,10 +13,33 @@ namespace Strings
 
         public static void Main(string[] args)
         {
+            //TestesComTuplas();
             //VerificaMoedaPais();
             //GeradorStringBuilder();
-            s0.Start();
+            //s0.Start();
             var conta1 = new Conta();
+
+            var conta3 = new Conta();
+            conta3.Pedidos = new List<Pedido>();
+            var contador3 = 1 + conta3.Pedidos.Count;
+
+            conta3.Pedidos.Add(
+                new Pedido
+                {
+                    Coletor = false,
+                    Dispositivo = "dispositivo fake"
+                });
+
+            contador3 = conta3.Pedidos.Count;
+
+            conta3.Pedidos.Add(
+                new Pedido
+                {
+                    Coletor = true,
+                    Dispositivo = "dispositivo real"
+                });
+
+            contador3 = conta3.Pedidos.Count;
 
             double a = 150;
             double a1 = 150.00;
@@ -46,6 +69,7 @@ namespace Strings
 
         #region Validação de String
         static void ValidaString(string a, Conta conta)
+
         {
             var valida = !string.IsNullOrWhiteSpace(a) ? Regex.Replace(a, @"[^0-9]", "") : string.Empty;
 
@@ -214,7 +238,7 @@ namespace Strings
 
             // TESTE COM STRINGBUILDER com 75
             var s6 = new Stopwatch();
-            s6.Start();            
+            s6.Start();
             var queryTemp = new StringBuilder(75);
             queryTemp.AppendLine("INSERT INTO [dbo].[Pedido]");
             queryTemp.AppendLine(" ([id]");
@@ -674,13 +698,28 @@ namespace Strings
 
             int num = 98765432;
             Console.WriteLine(string.Format("{0:#,#}", num));
-            Console.WriteLine(string.Format("{0:#,##0.##}", 0)); 
+            Console.WriteLine(string.Format("{0:#,##0.##}", 0));
             Console.WriteLine(string.Format("{0:#,##0.##}", 0.5));
             Console.WriteLine(string.Format("{0:#,##0.##}", 12314));
             Console.WriteLine(string.Format("{0:#,##0.##}", 12314.23123));
             Console.WriteLine(string.Format("{0:#,##0.##}", 12314.2));
             Console.WriteLine(string.Format("{0:##,##0.00}", 1231412314.2));
             Console.WriteLine(string.Format("{0:##,##0.00}", 1231412314.2));
+        }
+        #endregion
+
+        #region Tupla
+        static void TestesComTuplas()
+        {
+            var novaTupla = new List<Tuple<string, int, object>>();
+
+            var ps = new List<Tuple<string, object>>();
+            var ps2 = new List<Tuple<string, object>>();
+            ps2.Clear();
+
+            if (ps.Count == ps2.Count) Console.WriteLine("Tuplas tem o mesmo tamanho.");
+
+            Console.ReadKey();
         }
         #endregion
     }

@@ -45,13 +45,13 @@ def daysBetweenDates(aNasc, mNasc, dNasc, aAtual, mAtual, dAtual):
   qtdeDias = diasMeses + diasAnos
 
   if qtdeDias == 1:
-    return "Você tem 1 dia de idade."
+    return "Voc tem 1 dia de idade."
   else:
-    return "Você tem " + qtdeDias + " dias de idade."
+    return "Voc tem " + qtdeDias + " dias de idade."
 
 def leituraDasDatas():
-  dtNasc = str(input('Informe sua data de nascimento conforma o exemplo: \"05/06/1989\"\nAtenção! Não se esqueça de digitar as aspas duplas \'\"\"\'!\nData de nascimento: '))
-  dtAtual = str(input('Agora informe a data de hoje conforme o exemplo: \"01/07/2017\"\nAtenção! Não se esqueça de digitar as aspas duplas \'\"\"\'!\nData atual: '))
+  dtNasc = str(input('Informe sua data de nascimento conforma o exemplo: \"05/06/1989\"\nAten??o! N?o se esque?a de digitar as aspas duplas \'\"\"\'!\nData de nascimento: '))
+  dtAtual = str(input('Agora informe a data de hoje conforme o exemplo: \"01/07/2017\"\nAten??o! N?o se esque?a de digitar as aspas duplas \'\"\"\'!\nData atual: '))
   datas = dtNasc.split("/") #+ dtAtual.split("/"))
   print type(datas)
   return daysBetweenDates(int(datas[2]),int(datas[1]),int(datas[0]),datas[5],datas[4],datas[3])

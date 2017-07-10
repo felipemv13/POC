@@ -1,4 +1,6 @@
-﻿namespace Strings
+﻿using System.Collections.Generic;
+
+namespace Strings
 {
     public class Conta
     {
@@ -7,5 +9,6 @@
         public string Titular { get; set; }
         public double Saldo { get; set; }
         public Endereco Endereco { get; set; }
+        public List<Pedido> Pedidos { get; set; }
     }
 }
