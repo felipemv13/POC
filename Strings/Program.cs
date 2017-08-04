@@ -15,61 +15,62 @@ namespace Strings
         {
             TestaTrim();
             VerificaAny();
-            TestarContagem();
+            //TestarContagem();
             //TestesComTuplas();
             //VerificaMoedaPais();
             //GeradorStringBuilder();
             //s0.Start();
-            var conta1 = new Conta();
+            //var conta1 = new Conta();
 
-            var conta3 = new Conta();
-            conta3.Pedidos = new List<Pedido>();
-            var contador3 = 1 + conta3.Pedidos.Count;
+            //var conta3 = new Conta();
+            //conta3.Pedidos = new List<Pedido>();
+            //var contador3 = 1 + conta3.Pedidos.Count;
 
-            conta3.Pedidos.Add(
-                new Pedido
-                {
-                    Coletor = false,
-                    Dispositivo = "dispositivo fake"
-                });
+            //conta3.Pedidos.Add(
+            //    new Pedido
+            //    {
+            //        Coletor = false,
+            //        Dispositivo = "dispositivo fake"
+            //    });
 
-            contador3 = conta3.Pedidos.Count;
+            //contador3 = conta3.Pedidos.Count;
 
-            conta3.Pedidos.Add(
-                new Pedido
-                {
-                    Coletor = true,
-                    Dispositivo = "dispositivo real"
-                });
+            //conta3.Pedidos.Add(
+            //    new Pedido
+            //    {
+            //        Coletor = true,
+            //        Dispositivo = "dispositivo real"
+            //    });
 
-            contador3 = conta3.Pedidos.Count;
+            //contador3 = conta3.Pedidos.Count;
 
-            double a = 150;
-            double a1 = 150.00;
+            //double a = 150;
+            //double a1 = 150.00;
             //double a2 = 150,00;
 
-            string primeira = "Cidade";
-            conta1.Numero = 15234;
-            conta1.Saldo = 0.0;
-            conta1.Endereco = new Endereco()
-            {
-                Cidade = "Sao Paulo"
-            };
-            conta1.Titular = "rua sao paulo 09857-256";
+            //string primeira = "Cidade";
+            //conta1.Numero = 15234;
+            //conta1.Saldo = 0.0;
+            //conta1.Endereco = new Endereco()
+            //{
+            //    Cidade = "Sao Paulo"
+            //};
+            //conta1.Titular = "rua sao paulo 09857-256";
 
             //ValidaString(conta1.endereco.Estado, conta1);
 
             //TesteER();
-            var pedido1 = new Pedido();
-            Tempos(conta1, pedido1);
+            //var pedido1 = new Pedido();
+            //Tempos(conta1, pedido1);
 
-            Randomico(1);
-            var cpfnovo = GerarCpf();
-            Gerador endereco = new Gerador();
-            endereco.GetEndereco();
+            //Randomico(1);
+            //var cpfnovo = GerarCpf();
+            //Gerador endereco = new Gerador();
+            //endereco.GetEndereco();
 
         }
 
+        #region Verificar Replace e Regex
         private static void TestaTrim()
         {
             string a1 = "alfabeto@abecedario.com.br";
@@ -84,7 +85,7 @@ namespace Strings
 
             Stopwatch s0 = new Stopwatch();
             s0.Start();
-            var a2a = a2.Replace(" ","");
+            var a2a = a2.Replace(" ", "");
             s0.Stop();
             Console.WriteLine(s0.Elapsed);
             Console.WriteLine(s0.ElapsedTicks);
@@ -117,7 +118,9 @@ namespace Strings
             if (a1?.Trim() == a4?.Trim())
                 Console.WriteLine("Emails vazios.");
         }
+        #endregion
 
+        #region Verificar Any , All
         private static void VerificaAny()
         {
             var lista = new List<Pedido>();// as IEnumerable<Pedido>;
@@ -130,7 +133,7 @@ namespace Strings
             Pedido pedido4 = new Pedido();
             Pedido pedido5 = new Pedido();
 
-            
+
             //lista.Add(pedido1);
             //lista.Add(pedido2);
             //lista.Add(pedido3);
@@ -148,9 +151,8 @@ namespace Strings
 
             if (!lista.Any(x => x.DataDaCompra != default(DateTime)))
                 Console.WriteLine($"Só existem datas nulas.");
-
-
         }
+        #endregion
 
         #region Validação de String
         static void ValidaString(string a, Conta conta)
