@@ -73,17 +73,41 @@ namespace Strings
         private static void TestaTrim()
         {
             string a1 = "alfabeto@abecedario.com.br";
-            string a2 = "  alfabeto   @ a be ce dario. co m. br";
+            string a2 = " fel ipe.carval ho@ meua be ce dario. co m. br";
+            string aa2 = " fel ipe.carval ho@ meua be ce dario. co m. br";
             string a3 = string.Empty;
             string a4 = null;
             string a5 = "teste";
-            string a6 = "téstê";
+            string a6 = "Mário Gonçãlvês João de Guérra";
 
             var a1a = a1.Trim();
+
+            Stopwatch s0 = new Stopwatch();
+            s0.Start();
             var a2a = a2.Replace(" ","");
+            s0.Stop();
+            Console.WriteLine(s0.Elapsed);
+            Console.WriteLine(s0.ElapsedTicks);
             var a3a = a3.Trim();
             var a4a = a4?.Trim();
+
+            Stopwatch s6 = new Stopwatch();
+            s6.Start();
             var a6a = Regex.Replace(a6, "[^0-9a-zA-Z]+", ""); // retiro caracteres especiais
+            s6.Stop();
+            Console.WriteLine(s6.Elapsed);
+
+            Stopwatch s2a = new Stopwatch();
+            s2a.Start();
+            var aa2a = aa2.Replace(" ", "");
+            s2a.Stop();
+            Console.WriteLine(s2a.Elapsed);
+
+            Stopwatch s7 = new Stopwatch();
+            s7.Start();
+            a6a = Regex.Replace(a6, "[^0-9a-zA-Z]+", ""); // retiro caracteres especiais
+            s7.Stop();
+            Console.WriteLine(s7.Elapsed);
 
             if (a1?.Trim() == a2?.Trim())
                 Console.WriteLine("Emails iguais.");
