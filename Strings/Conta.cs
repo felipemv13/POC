@@ -9,6 +9,7 @@ namespace Strings
         public string Titular { get; set; }
         public double Saldo { get; set; }
         public Endereco Endereco { get; set; }
-        public List<Pedido> Pedidos { get; set; }
+        public List<Pedido> Pedidos { get; set; }      
     }
+
 }

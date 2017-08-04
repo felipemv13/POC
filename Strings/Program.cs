@@ -13,6 +13,9 @@ namespace Strings
 
         public static void Main(string[] args)
         {
+            TestaTrim();
+            VerificaAny();
+            TestarContagem();
             //TestesComTuplas();
             //VerificaMoedaPais();
             //GeradorStringBuilder();
@@ -64,6 +67,64 @@ namespace Strings
             var cpfnovo = GerarCpf();
             Gerador endereco = new Gerador();
             endereco.GetEndereco();
+
+        }
+
+        private static void TestaTrim()
+        {
+            string a1 = "alfabeto@abecedario.com.br";
+            string a2 = "  alfabeto   @ a be ce dario. co m. br";
+            string a3 = string.Empty;
+            string a4 = null;
+            string a5 = "teste";
+            string a6 = "téstê";
+
+            var a1a = a1.Trim();
+            var a2a = a2.Replace(" ","");
+            var a3a = a3.Trim();
+            var a4a = a4?.Trim();
+            var a6a = Regex.Replace(a6, "[^0-9a-zA-Z]+", ""); // retiro caracteres especiais
+
+            if (a1?.Trim() == a2?.Trim())
+                Console.WriteLine("Emails iguais.");
+            else
+                Console.WriteLine("Emails diferentes.");
+
+            if (a1?.Trim() == a4?.Trim())
+                Console.WriteLine("Emails vazios.");
+        }
+
+        private static void VerificaAny()
+        {
+            var lista = new List<Pedido>();// as IEnumerable<Pedido>;
+            Pedido pedido1 = new Pedido
+            {
+                DataDaCompra = new DateTime(2017, 1, 1, 1, 1, 1)
+            };
+            Pedido pedido2 = new Pedido();
+            Pedido pedido3 = new Pedido();
+            Pedido pedido4 = new Pedido();
+            Pedido pedido5 = new Pedido();
+
+            
+            //lista.Add(pedido1);
+            //lista.Add(pedido2);
+            //lista.Add(pedido3);
+            //lista.Add(pedido4);
+            //lista.Add(pedido5);
+            if (lista.All(x => x.DataDaCompra == default(DateTime)))
+            {
+                Console.WriteLine($"Só existem datas nulas.");
+                var beta = lista.OrderByDescending(x => x.DataDaCompra).FirstOrDefault();
+                if (beta == null)
+                    Console.WriteLine($"Não temos pedidos.");
+            }
+            if (lista.Any(x => x.DataDaCompra != default(DateTime)))
+                Console.WriteLine($"Existem datas não nulas.");
+
+            if (!lista.Any(x => x.DataDaCompra != default(DateTime)))
+                Console.WriteLine($"Só existem datas nulas.");
+
 
         }
 
@@ -720,6 +781,76 @@ namespace Strings
             if (ps.Count == ps2.Count) Console.WriteLine("Tuplas tem o mesmo tamanho.");
 
             Console.ReadKey();
+        }
+        #endregion
+
+        #region Pedido
+        static void TestarContagem()
+        {
+            var pedido1 = new Pedido()
+            {
+                IdPedido = 1,
+                DataDaCompra = new DateTime(2017, 01, 01, 10, 00, 00),
+                Consumidor = new Consumidor
+                {
+                    Cpf = "12345678900",
+                    Email = "felipe@felipe.com"
+                }
+            };
+            var pedido2 = new Pedido()
+            {
+                IdPedido = 2,
+                DataDaCompra = new DateTime(2017, 01, 01, 10, 00, 00),
+                Consumidor = new Consumidor
+                {
+                    Cpf = "12345678900",
+                    Email = "felipe@felipe.com"
+                }
+            };
+            var pedido3 = new Pedido()
+            {
+                IdPedido = 3,
+                DataDaCompra = new DateTime(2017, 01, 02, 10, 00, 00),
+                Consumidor = new Consumidor
+                {
+                    Cpf = "12345678900",
+                    Email = "felipe@felipe.com"
+                }
+            };
+
+            // Teste Pedido 0
+            List<Pedido> testePedidos0 = null;
+            bool teste0 = testePedidos0?.Count(x => x.IdPedido != pedido3.IdPedido
+                                            && x.DataDaCompra <= pedido3.DataDaCompra
+                                            && x.Consumidor.Cpf == pedido3.Consumidor.Cpf
+                                            && x.Consumidor?.Email?.ToLower() == pedido3.Consumidor?.Email?.ToLower()) == 0;
+
+            // Teste Pedido 1
+            List<Pedido> testePedidos1 = new List<Pedido>();
+            testePedidos1.Add(pedido1);
+            bool teste1 = false;
+            if (testePedidos1 != null)
+            {
+                teste1 = testePedidos1?.Count(x => x.IdPedido != pedido3.IdPedido
+                                            && x.DataDaCompra <= pedido3.DataDaCompra
+                                            && x.Consumidor.Cpf == pedido3.Consumidor.Cpf
+                                            && x.Consumidor?.Email?.ToLower() == pedido3.Consumidor?.Email?.ToLower()) == 0;
+            }
+
+            // Teste Pedido 2
+            List<Pedido> testePedidos2 = new List<Pedido>();
+            testePedidos2.Add(pedido2);
+            bool teste2 = false;
+            if (testePedidos2 != null)
+            {
+                teste2 = testePedidos2?.Count(x => x.IdPedido != pedido3.IdPedido
+                                            && x.DataDaCompra <= pedido3.DataDaCompra
+                                            && x.Consumidor.Cpf == pedido3.Consumidor.Cpf
+                                            && x.Consumidor?.Email?.ToLower() == pedido3.Consumidor?.Email?.ToLower()) > 0;
+            }
+            Console.WriteLine(teste0);
+            Console.WriteLine(teste1);
+            Console.WriteLine(teste2);
         }
         #endregion
     }
