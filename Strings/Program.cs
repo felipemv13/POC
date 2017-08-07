@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SAFe.Core.Common.Struct;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Strings
 
         public static void Main(string[] args)
         {
+            TesteStruct();
             TestaTrim();
             VerificaAny();
             //TestarContagem();
@@ -68,6 +70,27 @@ namespace Strings
             //Gerador endereco = new Gerador();
             //endereco.GetEndereco();
 
+        }
+
+        private static void TesteStruct()
+        {
+            var estrutura = new StructExemplo();
+
+            Pedido pedido1 = new Pedido
+            {
+                DataDaCompra = new DateTime(2017, 1, 1, 1, 1, 1),
+                NumeroIp = "127.0.0.1"
+            };
+            Pedido pedido2 = new Pedido
+            {
+                DataDaCompra = new DateTime(2018, 1, 1, 1, 1, 1),
+                NumeroIp = "128.0.0.1"
+            };
+            
+            estrutura.ListaAprovados = new List<string>(); // necessário inicializar a lista.
+
+            estrutura.ListaAprovados.Add(pedido1.NumeroIp);
+            estrutura.ListaAprovados.Add(pedido2.NumeroIp);
         }
 
         #region Verificar Replace e Regex
