@@ -14,6 +14,7 @@ namespace Strings
 
         public static void Main(string[] args)
         {
+            var numeropedidoaaa = GeraNumeroPedido();
             TesteStruct();
             TestaTrim();
             VerificaAny();
@@ -70,6 +71,12 @@ namespace Strings
             //Gerador endereco = new Gerador();
             //endereco.GetEndereco();
 
+        }
+
+        private static object GeraNumeroPedido()
+        {
+            var a = new Gerador();
+            return a.GeraNumeroPedido();
         }
 
         private static void TesteStruct()
