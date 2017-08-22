@@ -14,6 +14,7 @@ namespace Strings
 
         public static void Main(string[] args)
         {
+            CursoMoodleEasy();
             TesteStruct();
             TestaTrim();
             VerificaAny();
@@ -72,6 +73,39 @@ namespace Strings
 
         }
 
+        private static void CursoMoodleEasy()
+        {
+            string[] nomes = new string[4];
+            nomes[0] = "Felipe";
+
+            List<string> nomes2 = new List<string>();
+            nomes2.Add("Felipe");
+
+            foreach (var item in nomes)
+            {
+                Console.WriteLine(item);
+            }
+
+            foreach (var item in nomes2)
+            {
+                Console.WriteLine(item);
+            }
+
+            int z = 10;
+
+            for (int x = 0; x < 3; x++)
+            {
+                int z = 0;
+                z = z + x;
+            }
+
+            Console.WriteLine(z);
+            //for (int x = 0; x <= 12;)
+            //{
+            //    Console.WriteLine("C#");
+            //}
+        }
+
         private static void TesteStruct()
         {
             var estrutura = new StructExemplo();
@@ -86,7 +120,7 @@ namespace Strings
                 DataDaCompra = new DateTime(2018, 1, 1, 1, 1, 1),
                 NumeroIp = "128.0.0.1"
             };
-            
+
             estrutura.ListaAprovados = new List<string>(); // necessário inicializar a lista.
 
             estrutura.ListaAprovados.Add(pedido1.NumeroIp);
