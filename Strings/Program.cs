@@ -15,7 +15,7 @@ namespace Strings
         public static void Main(string[] args)
         {
             CursoMoodleEasy();
-            var numeropedidoaaa = GeraNumeroPedido();
+            var nrpedido = GeraNumeroPedido();
             TesteStruct();
             TestaTrim();
             VerificaAny();
