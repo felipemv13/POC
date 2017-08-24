@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Strings
 {
@@ -72,5 +73,15 @@ namespace Strings
             };
             return end;
         }
+
+        public string GeraNumeroPedido()
+        {
+            Random random = new Random();
+            var finalPedido = random.Next(1, 1000) * 1.973;
+            var data = new DateTime();
+            string nrPedido = "TUPPER_" + data.ToString().Trim() + finalPedido.ToString("00000");
+            return nrPedido;
+        }
     }
+
 }

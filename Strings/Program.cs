@@ -15,6 +15,7 @@ namespace Strings
         public static void Main(string[] args)
         {
             CursoMoodleEasy();
+            var nrpedido = GeraNumeroPedido();
             TesteStruct();
             TestaTrim();
             VerificaAny();
@@ -106,6 +107,12 @@ namespace Strings
             //{
             //    Console.WriteLine("C#");
             //}
+        }
+
+        private static object GeraNumeroPedido()
+        {
+            var a = new Gerador();
+            return a.GeraNumeroPedido();
         }
 
         private static void TesteStruct()
