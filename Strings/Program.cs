@@ -91,15 +91,17 @@ namespace Strings
                 Console.WriteLine(item);
             }
 
-            int z = 10;
+            //int z = 10;
 
-            for (int x = 0; x < 3; x++)
-            {
-                int z = 0;
-                z = z + x;
-            }
+            //for (int x = 0; x < 3; x++)
+            //{
+            //    int z = 0;
+            //    z = z + x;
+            //}
 
-            Console.WriteLine(z);
+            //Console.WriteLine(z);
+
+
             //for (int x = 0; x <= 12;)
             //{
             //    Console.WriteLine("C#");
