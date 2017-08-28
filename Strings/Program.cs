@@ -14,9 +14,11 @@ namespace Strings
 
         public static void Main(string[] args)
         {
-            CursoMoodleEasy();
-            var nrpedido = GeraNumeroPedido();
-            TesteStruct();
+            //RemoveSubstringToken("a");
+            //TesteStringFormat();
+            //CursoMoodleEasy();
+            //var nrpedido = GeraNumeroPedido();
+            //TesteStruct();
             TestaTrim();
             VerificaAny();
             //TestarContagem();
@@ -72,6 +74,20 @@ namespace Strings
             //Gerador endereco = new Gerador();
             //endereco.GetEndereco();
 
+        }
+
+        private static void TesteStringFormat()
+        {
+            int a1 = 11;
+            int b1 = 22116664;
+            var c1 = string.Format("{0}{1}", a1.ToString(), b1);
+            var listaTelefones = new List<string>();
+            listaTelefones.Add(c1);
+
+            int a2 = 11;
+            int b2 = 948702549;
+            var c2 = string.Format("{0}{1}", a2.ToString(), b2);
+            listaTelefones.Add(c2);
         }
 
         private static void CursoMoodleEasy()
@@ -146,6 +162,7 @@ namespace Strings
             string a4 = null;
             string a5 = "teste";
             string a6 = "Mário Gonçãlvês João de Guérra";
+            var stringBuild = new StringBuilder();
 
             var a1a = a1.Trim();
 
@@ -183,6 +200,17 @@ namespace Strings
 
             if (a1?.Trim() == a4?.Trim())
                 Console.WriteLine("Emails vazios.");
+
+            // Testar TRIM na StringBuilder
+            stringBuild.Append("[");
+            stringBuild.Append(a1);
+            stringBuild.Append(a2);
+            stringBuild.Append(a3);
+            stringBuild.Append(a4);
+            stringBuild.Append(a5);
+            stringBuild.Append(a6);
+            stringBuild.Append("]");
+            var file = stringBuild.Replace(" ", string.Empty);
         }
         #endregion
 
@@ -945,5 +973,23 @@ namespace Strings
             Console.WriteLine(teste2);
         }
         #endregion
+
+        #region Remover Substring
+        static void RemoveSubstringToken(string pedido)
+        {
+            string inteira = @"""CodigoBVS"": ""JCN"",    ""Token"": ""TID26acfe000e04e"",    ""Consumidor"": {        ""CpfCnpj"": ""41310678898"", """;
+            Console.WriteLine(inteira);
+            int indiceInicioSubstring = inteira.IndexOf(@"""Token", 0);
+            Console.WriteLine(indiceInicioSubstring);
+            int indiceFimSubstring = inteira.IndexOf(@""", ", indiceInicioSubstring);
+            Console.WriteLine(indiceFimSubstring);
+            var substringToken = inteira.Substring(indiceInicioSubstring, indiceFimSubstring - indiceInicioSubstring + 2);
+            Console.WriteLine(substringToken);
+            Console.WriteLine(inteira.Replace(substringToken, string.Empty));
+
+            Console.Read();
+        }
+        #endregion
+
     }
 }

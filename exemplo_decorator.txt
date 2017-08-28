@@ -1,0 +1,203 @@
+using SAFe.Core.Entity.Consulta.Helpers;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
+
+namespace SAFe.Core.Entity.Consulta.RespostaTexto
+{
+    [Serializable]
+    [ResponseType(Size = 397, Types = "502", Version = 3)]
+    public class RespostaOutrasGrafiasV3 : RespostaTextoBase
+    {
+        [ConfigStringParam(100, 8)]
+        [DisplayName("Nome")]
+        public string Nome { get; set; }
+
+        [ConfigStringParam(11, 108)]
+        [DisplayName("Número do CPF")]
+        public string NumeroDoCpf { get; set; }
+
+        [ConfigStringParam(8, 119)]
+        [DisplayName("Data de Nascimento")]
+        public string DataNascimento { get; set; }
+
+        [ConfigStringParam(15, 127)]
+        [DisplayName("Número do RG")]
+        public string NumeroRg { get; set; }
+
+        [ConfigStringParam(010, 142)]
+        [DisplayName("Tipo do Logradouro")]
+        public string TipoLogradouro { get; set; }
+
+        [ConfigStringParam(070, 152)]
+        [DisplayName("Nome do Logradouro")]
+        public string NomeLogradouro { get; set; }
+
+        [ConfigStringParam(10, 222)]
+        [DisplayName("Número do Logradouro")]
+        public string NumeroLogradouro { get; set; }
+
+        [ConfigStringParam(50, 232)]
+        [DisplayName("Complemento do Logradouro")]
+        public string ComplementoLogradouro { get; set; }
+
+
+        [ConfigStringParam(35, 282)]
+        [DisplayName("Bairro")]
+        public string Bairro { get; set; }
+
+        [ConfigStringParam(35, 317)]
+        [DisplayName("Cidade")]
+        public string Cidade { get; set; }
+
+        [ConfigStringParam(2, 352)]
+        [DisplayName("Unidade Federativa")]
+        public string UnidadeFederativa { get; set; }
+
+        [ConfigStringParam(8, 354)]
+        [DisplayName("Número do CEP")]
+        public string NumeroCep { get; set; }
+
+        [ConfigStringParam(4, 362)]
+        [DisplayName("DDD1")]
+        public int DDD1 { get; set; }
+
+        [ConfigStringParam(9, 366)]
+        [DisplayName("Telefone 1")]
+        public int Telefone1 { get; set; }
+
+        [ConfigStringParam(4, 375)]
+        [DisplayName("DDD2")]
+        public int DDD2 { get; set; }
+
+        [ConfigStringParam(9, 379)]
+        [DisplayName("Telefone 2")]
+        public int Telefone2 { get; set; }
+
+        [ConfigStringParam(4, 388)]
+        [DisplayName("DDD3")]
+        public int DDD3 { get; set; }
+
+        [ConfigStringParam(9, 392)]
+        [DisplayName("Telefone 3")]
+        public int Telefone3 { get; set; }
+
+        public override string GetSearchString()
+        {
+            var sb = new StringBuilder();
+            //base
+            sb.Append(TamanhoDoRegistro.ToString().PadLeft(3, '0'));
+            sb.Append(TipoDoRegistro.ToString().PadLeft(3, '0'));
+            sb.Append((Registro ?? string.Empty).PadRight(1, ' '));
+            //this
+            sb.Append((Nome ?? string.Empty).PadRight(100, ' '));
+            sb.Append((NumeroDoCpf ?? string.Empty).PadRight(11, ' '));
+            sb.Append((DataNascimento ?? string.Empty).PadRight(8, ' '));
+            sb.Append((NumeroRg ?? string.Empty).PadRight(15, ' '));
+            sb.Append((TipoLogradouro ?? string.Empty).PadRight(10, ' '));
+            sb.Append((NomeLogradouro ?? string.Empty).PadRight(70, ' '));
+            sb.Append((NumeroLogradouro ?? string.Empty).PadRight(10, ' '));
+            sb.Append((ComplementoLogradouro ?? string.Empty).PadRight(50, ' '));
+            sb.Append((Bairro ?? string.Empty).PadRight(35, ' '));
+            sb.Append((Cidade ?? string.Empty).PadRight(35, ' '));
+            sb.Append((UnidadeFederativa ?? string.Empty).PadRight(2, ' '));
+            sb.Append((NumeroCep ?? string.Empty).PadRight(8, ' '));
+            sb.Append(DDD1.ToString().PadLeft(4, '0'));
+            sb.Append(Telefone1.ToString().PadLeft(9, '0'));
+            sb.Append(DDD2.ToString().PadLeft(4, '0'));
+            sb.Append(Telefone2.ToString().PadLeft(9, '0'));
+            sb.Append(DDD3.ToString().PadLeft(4, '0'));
+            sb.Append(Telefone3.ToString().PadLeft(9, '0'));
+            return sb.ToString();
+        }
+
+        public void FillFromString(string dados, int version)
+        {
+            Erros = new Dictionary<string, string>();
+
+            int index = 0;
+            string propriedadeAtual = null;
+            var builder = new StringBuilder();
+
+            Func<string, int, string, string> getValue = (characters, nextChars, currentField) =>
+            {
+                propriedadeAtual = currentField;
+
+                var totalIteracoes = (index + nextChars);
+
+                while (index < totalIteracoes)
+                {
+                    builder.Append(characters[index]);
+                    index++;
+                }
+
+                var result = builder.ToString();
+
+                builder.Clear();
+
+                return result.Trim();
+            };
+
+            try
+            {
+                int intValue;
+                //base
+                TamanhoDoRegistro = int.TryParse(getValue(dados, 3, "TamanhoDoRegistro"), out intValue) ? intValue : 0;
+                TipoDoRegistro = int.TryParse(getValue(dados, 3, "TipoDoRegistro"), out intValue) ? intValue : 0;
+                Registro = getValue(dados, 1, "Registro");
+                //this
+                Nome = getValue(dados, 100, "Nome");
+                NumeroDoCpf = getValue(dados, 11, "NumeroDoCpf");
+                DataNascimento = getValue(dados, 8, "DataNascimento");
+                NumeroRg = getValue(dados, 15, "NumeroRg");
+                TipoLogradouro = getValue(dados, 10, "TipoLogradouro");
+                NomeLogradouro = getValue(dados, 70, "NomeLogradouro");
+                NumeroLogradouro = getValue(dados, 10, "NumeroLogradouro");
+                ComplementoLogradouro = getValue(dados, 50, "ComplementoLogradouro");
+                Bairro = getValue(dados, 35, "Bairro");
+                Cidade = getValue(dados, 35, "Cidade");
+                UnidadeFederativa = getValue(dados, 2, "UnidadeFederativa");
+                NumeroCep = getValue(dados, 8, "NumeroCep");
+                DDD1 = int.TryParse(getValue(dados, 4, "DDD1"), out intValue) ? intValue : 0;
+                Telefone1 = int.TryParse(getValue(dados, 9, "Telefone1"), out intValue) ? intValue : 0;
+                DDD2 = int.TryParse(getValue(dados, 4, "DDD2"), out intValue) ? intValue : 0;
+                Telefone2 = int.TryParse(getValue(dados, 9, "Telefone2"), out intValue) ? intValue : 0;
+                DDD3 = int.TryParse(getValue(dados, 4, "DDD3"), out intValue) ? intValue : 0;
+                Telefone3 = int.TryParse(getValue(dados, 9, "Telefone3"), out intValue) ? intValue : 0;
+            }
+            catch (Exception ex)
+            {
+                Erros.Add(propriedadeAtual, string.Format("Erro ao mapear campo: {0}", ex.Message));
+            }
+        }
+
+        public static explicit operator RespostaOutrasGrafiasV3(RespostaOutrasGrafias v3)
+        {
+            var a = v3.Endereco;
+            return new RespostaOutrasGrafiasV3()
+            {
+                Nome = v3.Nome,
+                NumeroRg = v3.NumeroRg,
+                NumeroDoCpf = v3.NumeroDoCpf,
+                UnidadeFederativa = v3.UnidadeFederativa,
+                DataNascimento = v3.DataNascimento,
+                Registro = v3.Registro,
+                TipoDoRegistro = v3.TipoDoRegistro,
+                TamanhoDoRegistro = v3.TamanhoDoRegistro,     
+                NomeLogradouro = v3.Endereco,
+                NumeroCep = v3.NumeroCep,
+                Bairro = v3.Bairro,
+                Cidade = v3.Cidade,
+                DDD1 = v3.DDD1,
+                Telefone1 = v3.Telefone1,
+                DDD2 = v3.DDD2,
+                Telefone2 = v3.Telefone2,
+                DDD3 = v3.DDD3,
+                Telefone3 = v3.Telefone3,
+
+            };
+        }
+    }
+
+}
