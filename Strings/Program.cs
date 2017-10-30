@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace Strings
 {
@@ -14,13 +15,14 @@ namespace Strings
 
         public static void Main(string[] args)
         {
+            TestaLeituraArquivo();
             //RemoveSubstringToken("a");
             //TesteStringFormat();
             //CursoMoodleEasy();
             //var nrpedido = GeraNumeroPedido();
             //TesteStruct();
-            TestaTrim();
-            VerificaAny();
+            //TestaTrim();
+            //VerificaAny();
             //TestarContagem();
             //TestesComTuplas();
             //VerificaMoedaPais();
@@ -74,6 +76,31 @@ namespace Strings
             //Gerador endereco = new Gerador();
             //endereco.GetEndereco();
 
+        }
+
+        private static void TestaLeituraArquivo()
+        {
+            var path = @"C:\SAFe\RoboDecisaoExterna\Log\";
+            var filename = "dataHistory.txt";
+            if (!Directory.Exists(path))
+            {
+                DirectoryInfo di = Directory.CreateDirectory(path);
+            }
+
+            if (File.Exists($@"{path}{filename}"))
+            {
+                Stream entrada = File.Open($@"{path}{filename}", FileMode.Open);
+                StreamReader leitor = new StreamReader(entrada);
+
+            }
+            else
+            {
+                using (StreamWriter file =
+                    new StreamWriter($@"{path}{filename}"))
+                {
+                }
+            }
+            
         }
 
         private static void TesteStringFormat()
