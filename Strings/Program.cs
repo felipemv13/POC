@@ -16,6 +16,7 @@ namespace Strings
         public static void Main(string[] args)
         {
             TestaLeituraArquivo();
+            //TestesRegex.ResolverSexo("feminino","fem");            
             //RemoveSubstringToken("a");
             //TesteStringFormat();
             //CursoMoodleEasy();
