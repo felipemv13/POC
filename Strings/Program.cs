@@ -83,25 +83,34 @@ namespace Strings
         {
             var path = @"C:\SAFe\RoboDecisaoExterna\Log\";
             var filename = "dataHistory.txt";
+            var fileContent = new List<string>();
+
             if (!Directory.Exists(path))
             {
                 DirectoryInfo di = Directory.CreateDirectory(path);
             }
 
-            if (File.Exists($@"{path}{filename}"))
-            {
-                Stream entrada = File.Open($@"{path}{filename}", FileMode.Open);
-                StreamReader leitor = new StreamReader(entrada);
-
-            }
-            else
+            if (!File.Exists($@"{path}{filename}"))
             {
                 using (StreamWriter file =
                     new StreamWriter($@"{path}{filename}"))
                 {
                 }
             }
-            
+
+            Stream entrada = File.Open($@"{path}{filename}", FileMode.Open);
+            StreamReader leitor = new StreamReader(entrada);
+            //string linha = leitor.ReadLine();
+            for (int i = 0; !leitor.EndOfStream; i++)
+            {
+                fileContent.Add(leitor.ReadLine());
+            }
+            leitor.Close();
+            entrada.Close();
+
+            fileContent.Remove("");
+            fileContent.Sort(); // ASC
+            var a = fileContent.FirstOrDefault();            
         }
 
         private static void TesteStringFormat()
