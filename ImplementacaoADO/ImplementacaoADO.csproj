@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CAB10620-F39F-4853-8DE7-5ADED51ABA5F}</ProjectGuid>
+    <ProjectGuid>{688C2705-7996-4A8E-86B6-C9C9722CBB03}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Strings</RootNamespace>
-    <AssemblyName>Strings</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>ImplementacaoADO</RootNamespace>
+    <AssemblyName>ImplementacaoADO</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
@@ -43,16 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consumidor.cs" />
-    <Compile Include="Conta.cs" />
-    <Compile Include="Endereco.cs" />
-    <Compile Include="Gerador.cs" />
-    <Compile Include="ManipulandoStrings.cs" />
-    <Compile Include="StructTeste.cs" />
-    <Compile Include="Pedido.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestesRegex.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeituraDeString", "LeituraD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorViewExample", "RazorViewExample\RazorViewExample.csproj", "{873575F0-5278-46D0-9316-78ABDAB98DFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImplementacaoADO", "ImplementacaoADO\ImplementacaoADO.csproj", "{688C2705-7996-4A8E-86B6-C9C9722CBB03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{873575F0-5278-46D0-9316-78ABDAB98DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{873575F0-5278-46D0-9316-78ABDAB98DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{873575F0-5278-46D0-9316-78ABDAB98DFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{688C2705-7996-4A8E-86B6-C9C9722CBB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{688C2705-7996-4A8E-86B6-C9C9722CBB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{688C2705-7996-4A8E-86B6-C9C9722CBB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{688C2705-7996-4A8E-86B6-C9C9722CBB03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
