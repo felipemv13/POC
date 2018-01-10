@@ -15,6 +15,15 @@ namespace Strings
 
         public static void Main(string[] args)
         {
+            var telefone = " ";
+            var result = telefone.IsValidCEP();
+
+
+            var cpf1 = " ";
+            var result1 = cpf1.IsValidCpf();
+            string cpf2 = null;
+            var result2 = cpf2.IsValidCpf();
+            
             ManipulandoStrings.ManipulandoStrings2();
             //TestaLeituraArquivo();
             //TestesRegex.ResolverSexo("feminino","fem");            
@@ -111,7 +120,7 @@ namespace Strings
 
             fileContent.Remove("");
             fileContent.Sort(); // ASC
-            var a = fileContent.FirstOrDefault();            
+            var a = fileContent.FirstOrDefault();
         }
 
         private static void TesteStringFormat()

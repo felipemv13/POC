@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Strings
 {
-    public class ManipulandoStrings
+    public static class ManipulandoStrings
     {
 
         public static void ManipulandoStrings2()
@@ -63,6 +64,58 @@ namespace Strings
             queryField.Clear();
             queryInsertValue.Clear();
 
+        }
+
+        public static bool IsValidCEP(this string input)
+        {
+            return Regex.IsMatch(input, @"^[0-9]{4,5}-?[0-9]{3}$");
+        }
+
+        public static bool IsValidCpf(this string input)
+        {
+            if ((input == "00000000000") || (input == "11111111111") || (input == "22222222222") ||
+                (input == "33333333333") || (input == "44444444444") || (input == "55555555555") ||
+                (input == "66666666666") || (input == "77777777777") || (input == "88888888888") ||
+                (input == "99999999999"))
+            {
+                return false;
+            }
+
+            if (!Regex.IsMatch(input, @"^\d{1,3}\.?\d{3}\.?\d{3}\-?\d{2}$"))
+                return false;
+            string cpf = Regex.Replace(input, @"[^0-9]", "").PadLeft(11, '0');
+            int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            string tempCpf;
+            string digito;
+            int soma;
+            int resto;
+            cpf = cpf.Trim();
+            cpf = cpf.Replace(".", "").Replace("-", "");
+            if (cpf.Length != 11)
+                return false;
+            tempCpf = cpf.Substring(0, 9);
+            soma = 0;
+
+            for (int i = 0; i < 9; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito = resto.ToString();
+            tempCpf = tempCpf + digito;
+            soma = 0;
+            for (int i = 0; i < 10; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito = digito + resto;
+            return cpf.EndsWith(digito);
         }
     }
 }
