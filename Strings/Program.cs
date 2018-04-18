@@ -1,11 +1,11 @@
-﻿using System;
+﻿using SAFe.Core.Common.Struct;
+using System;
 using System.Collections.Generic;
-using SAFe.Core.Common.Struct;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.IO;
 
 namespace Strings
 {
@@ -15,15 +15,16 @@ namespace Strings
 
         public static void Main(string[] args)
         {
+            var texto2 = Console.ReadLine();
+            var a = $", '{texto2.AddSlashes()}'";
+
             var telefone = " ";
             var result = telefone.IsValidCEP();
-
-
             var cpf1 = " ";
             var result1 = cpf1.IsValidCpf();
             string cpf2 = null;
             var result2 = cpf2.IsValidCpf();
-            
+
             ManipulandoStrings.ManipulandoStrings2();
             //TestaLeituraArquivo();
             //TestesRegex.ResolverSexo("feminino","fem");            
